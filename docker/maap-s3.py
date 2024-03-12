@@ -1,4 +1,4 @@
-#!/opt/conda/bin/python
+#!/usr/local/bin/python
 import sys, getopt
 import requests
 import json
@@ -34,7 +34,7 @@ def display_help():
     print('delete     path/in/S3/file.tiff                                       Delete an existing data on S3')
     print('refresh                                                               Refresh credentials and password')
     print('token      email                        password                      Return a bearer token')
-    print('login      email                        password                      Return a bearer token')
+    print('login      email                        password                      Login the user')
     print('resume                                                                Resume last interrupted multipart upload')
     sys.exit(2)
 
