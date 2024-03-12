@@ -171,7 +171,6 @@ COPY installLib.sh $HOME/installLib.sh
 # We add the script folder and the zip file to be able to unzip the structure of the project
 COPY initTemplate.sh $HOME/initTemplate.sh
 COPY initCredentials.sh $HOME/initCredentials.sh
-COPY Project_template.zip $HOME/Project_template.zip
 COPY shareAlgorithm.sh $HOME/shareAlgorithm.sh
 
 USER 0
