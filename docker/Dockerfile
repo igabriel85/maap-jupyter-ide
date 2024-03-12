@@ -190,7 +190,7 @@ RUN $HOME/installLib.sh
 RUN npm install typescript -g
 
 COPY hide_side_panel $HOME/hide_side_panel
-RUN cd $HOME/hide_side_panel && npm install && npm run build && jupyter labextension install . --no-build
+#RUN cd $HOME/hide_side_panel && npm install && npm run build && jupyter labextension install . --no-build
 
 # Standard Jupyter Lab extensions
 RUN jupyter labextension install --no-build jupyterlab-plotly@5.5.0
