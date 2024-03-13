@@ -215,6 +215,22 @@ RUN jupyter lab build && \
     jlpm cache clean && \
     npm cache clean --force
 
+# Additional settings jupyter
+ENV CONFIG /home/user/.jupyter/jupyter_notebook_config.py
+ENV CONFIG_IPYTHON /home/user/.ipython/profile_default/ipython_config.py
+
+RUN jupyter notebook --generate-config --allow-root && \
+    ipython profile create
+
+# Enable a more liberal Content-Security-Policy so that we can display Jupyter
+# in an iframe.
+RUN echo "c.NotebookApp.tornado_settings = {" >> /etc/jupyter/jupyter_notebook_config.py && \
+       echo "    'headers': {" >> /etc/jupyter/jupyter_notebook_config.py && \
+       echo "        'Content-Security-Policy': \"frame-ancestors 'self' *\"" >> /etc/jupyter/jupyter_notebook_config.py && \
+       echo "    }" >> /etc/jupyter/jupyter_notebook_config.py && \
+       echo "}" >> /etc/jupyter/jupyter_notebook_config.py
+
+
 # Set the working directory
 WORKDIR /projects
 
