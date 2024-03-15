@@ -19,4 +19,4 @@ echo $PATH
 VERSION=$(jupyter lab --version)
 echo "Starting Jupyter Lab"
 echo "Jupyter Lab version: $VERSION"
-jupyter lab --ip=0.0.0.0 --port=3100 --allow-root --ServerApp.token='' --no-browser --NotebookApp.tornado_settings='{"headers":{"Content-Security-Policy":"frame-ancestors self *.eocc.ieat.ro; report-uri /api/security/csp-report"}}'
+jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --ServerApp.token='' --no-browser

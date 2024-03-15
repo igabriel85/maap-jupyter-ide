@@ -241,7 +241,7 @@ RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
 WORKDIR /projects
 
 # Expose port
-EXPOSE 3100
+EXPOSE 8888
 
 ENTRYPOINT ["/entrypoint.sh" ]
 CMD ["tail", "-f", "/dev/null"]
