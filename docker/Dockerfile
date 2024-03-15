@@ -222,6 +222,12 @@ ENV CONFIG_IPYTHON /home/user/.ipython/profile_default/ipython_config.py
 RUN jupyter notebook --generate-config --allow-root && \
     ipython profile create
 
+RUN echo "c.NotebookApp.ip = '*'" >>${CONFIG} && \
+    echo "c.NotebookApp.open_browser = False" >>${CONFIG} && \
+    echo "c.NotebookApp.iopub_data_rate_limit=10000000000" >>${CONFIG}
+
+RUN echo "c.InteractiveShellApp.exec_lines = ['%matplotlib inline']" >>${CONFIG_IPYTHON}
+
 # Enable a more liberal Content-Security-Policy so that we can display Jupyter
 # in an iframe.
 RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
