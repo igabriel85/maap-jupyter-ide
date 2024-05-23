@@ -16,6 +16,9 @@ fi
 whoami
 which python
 echo $PATH
+
+
+
 VERSION=$(jupyter lab --version)
 echo "Starting Jupyter Lab"
 echo "Jupyter Lab version: $VERSION"
