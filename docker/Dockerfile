@@ -177,7 +177,7 @@ RUN $CONDA_DIR/bin/conda init bash
 RUN echo "source activate pymaap" > ~/.bashrc
 
 #activate conda env during build
-RUN conda activate pymaap
+SHELL ["/bin/bash", "-c"]
 
 # install BTK
 RUN $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btklogger-2.3.2-py_0.tar.bz2 && \

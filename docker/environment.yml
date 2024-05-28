@@ -7,7 +7,7 @@ channels:
 #  - file:///home/user/bps_channel/
   - nodefaults
 dependencies:
-  - python=3.9.17
+  - python==3.9.17
   - scikit-image
   - pandas
   - affine
