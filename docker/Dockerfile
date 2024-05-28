@@ -155,8 +155,8 @@ RUN $CONDA_DIR/bin/conda env create -y -f "/tmp/environment.yml" \
 RUN mkdir -p $HOME/bps_channel/noarch && \
     mkdir -p $HOME/btk_channel/noarch
 
-COPY ./bps_channel/noarch/ /home/user/bps_channel/noarch/
-COPY ./btk_channel/noarch/ /home/user/btk_channel/noarch/
+COPY docker/bps_channel/noarch/ /home/user/bps_channel/noarch/
+COPY docker/btk_channel/noarch/ /home/user/btk_channel/noarch/
 
 # add to conda
 RUN conda index --verbose /home/user/bps_channel/noarch && \
