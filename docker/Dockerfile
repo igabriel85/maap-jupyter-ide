@@ -169,10 +169,10 @@ RUN $CONDA_DIR/bin/conda init bash && \
     $CONDA_DIR/bin/conda init
 
 # add to conda
-RUN $CONDA_DIR/bin/conda index --verbose $HOME/bps_channel/noarch && \
-    $CONDA_DIR/bin/conda index --verbose $HOME/btk_channel/noarch
+#RUN $CONDA_DIR/bin/conda index --verbose $HOME/bps_channel/noarch && \
+#    $CONDA_DIR/bin/conda index --verbose $HOME/btk_channel/noarch
 
-# Add channels
+# Add channels, after conde index execution
 RUN $CONDA_DIR/bin/conda config --prepend channels /home/user/bps_channel && \
     $CONDA_DIR/bin/conda config --prepend channels /home/user/btk_channel
 
@@ -190,7 +190,7 @@ RUN $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btklogger-2.3.2-p
     $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorstack-2.3.2-py_0.tar.bz2 && \
     $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorl2-2.3.2-py_0.tar.bz2 && \
     $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdevkit-2.3.2-py_0.tar.bz2 && \
-    && $CONDA_DIR/bin/conda clean -afy
+    $CONDA_DIR/bin/conda clean -afy
 
 
 # install BPS
@@ -209,9 +209,9 @@ RUN $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-runne
     $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 --no-debs && \
     $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 --no-debs && \
     $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 --no-debs \
-    && $CONDA_DIR/bin/conda clean -afy
+#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 --no-debs && \
+#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 --no-debs && \
+    $CONDA_DIR/bin/conda clean -afy
 
 # Install missing
 RUN pip install owslib opencv-python
