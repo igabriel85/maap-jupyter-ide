@@ -3,8 +3,6 @@ channels:
   - conda-forge
   - defaults
   - intel
-  - file:///home/user/btk_channel
-  - file:///home/user/bps_channel
   - nodefaults
 dependencies:
   - python=3.9.17
@@ -125,19 +123,6 @@ dependencies:
   - pip
   - nb_conda_kernels
   - nodejs
-  - btklogger-2.3.2-py_0.tar.bz2
-  - btkdatamgmt-2.3.2-py_0.tar.bz2
-  - btkdatamgmtascii-2.3.2-py_0.tar.bz2
-  - btkdatamgmtaux-2.3.2-py_0.tar.bz2
-  - btkdatamgmtbrk-2.3.2-py_0.tar.bz2
-  - btkdatamgmtdgm-2.3.2-py_0.tar.bz2
-  - btkqualitytools-2.3.2-py_0.tar.bz2
-  - btkprocessor-2.3.2-py_0.tar.bz2
-  - btkprocessorl1-2.3.2-py_0.tar.bz2
-  - btkprocessorl1framing-2.3.2-py_0.tar.bz2
-  - btkprocessorstack-2.3.2-py_0.tar.bz2
-  - btkprocessorl2-2.3.2-py_0.tar.bz2
-  - btkdevkit-2.3.2-py_0.tar.bz2
   - pip:
       - fastjsonschema
       - art
