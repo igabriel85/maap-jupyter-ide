@@ -152,8 +152,8 @@ RUN $CONDA_DIR/bin/conda env create -y -f "/tmp/environment.yml" \
 # Setup BPS and BTK
 
 # Copy files
-RUN mkdir /home/user/bps_channel/noarch && \
-    mkdir /home/user/btk_channel/noarch
+RUN mkdir -p $HOME/bps_channel/noarch && \
+    mkdir -p $HOME/btk_channel/noarch
 
 COPY bps_channel/noarch/* /home/user/bps_channel/noarch/
 COPY btk_channel/noarch/* /home/user/btk_channel/noarch/
