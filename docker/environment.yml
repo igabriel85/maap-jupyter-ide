@@ -122,6 +122,7 @@ dependencies:
   - xmltodict
   - pip
   - nb_conda_kernels
+  - nodejs
   - pip:
       - fastjsonschema
       - art
