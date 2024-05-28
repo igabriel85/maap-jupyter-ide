@@ -155,12 +155,14 @@ RUN $CONDA_DIR/bin/conda env create -y -f "/tmp/environment.yml" \
 RUN mkdir -p $HOME/bps_channel/noarch && \
     mkdir -p $HOME/btk_channel/noarch
 
-COPY docker/bps_channel/noarch/ /home/user/bps_channel/noarch/
-COPY docker/btk_channel/noarch/ /home/user/btk_channel/noarch/
+COPY ./bps_channel/noarch/ $HOME/bps_channel/noarch/
+COPY ./btk_channel/noarch/ $HOME/btk_channel/noarch/
+
+# decompress
 
 # add to conda
-RUN conda index --verbose /home/user/bps_channel/noarch && \
-    conda index --verbose /home/user/btk_channel/noarch
+RUN conda index --verbose $HOME/bps_channel/noarch && \
+    conda index --verbose $HOME/btk_channel/noarch
 
 # Add channels
 RUN conda config --prepend channels /home/user/bps_channel && \
