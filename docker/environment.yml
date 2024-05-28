@@ -65,7 +65,6 @@ dependencies:
   - argon2-cffi-bindings
   - docutils
   - geopandas
-  - fastjsonschema
   - fiona
   - future
   - filelock
