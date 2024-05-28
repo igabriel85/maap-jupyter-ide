@@ -149,6 +149,60 @@ RUN $CONDA_DIR/bin/conda env create -y -f "/tmp/environment.yml" \
     && find $CONDA_DIR/ -follow -type f -name '*.js.map' -delete \
     && $CONDA_DIR/bin/conda clean -afy
 
+# Setup BPS and BTK
+
+# Copy files
+RUN mkdir /home/user/bps_channel/noarch && \
+    mkdir /home/user/btk_channel/noarch
+
+COPY bps_channel/noarch/* /home/user/bps_channel/noarch/
+COPY btk_channel/noarch/* /home/user/btk_channel/noarch/
+
+# add to conda
+RUN conda index --verbose /home/user/bps_channel/noarch && \
+    conda index --verbose /home/user/btk_channel/noarch
+
+# Add channels
+RUN conda config --prepend channels /home/user/bps_channel && \
+    conda config --prepend channels /home/user/btk_channel
+
+# install BTK
+RUN conda install /home/user/btk_channel/noarch/btklogger-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkdatamgmt-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkdatamgmtascii-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkdatamgmtaux-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkdatamgmtbrk-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkdatamgmtdgm-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkqualitytools-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkprocessor-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkprocessorl1-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkprocessorl1framing-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkprocessorstack-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkprocessorl2-2.3.2-py_0.tar.bz2 && \
+    conda install /home/user/btk_channel/noarch/btkdevkit-2.3.2-py_0.tar.bz2 && \
+    && conda clean -afy
+
+
+# install BPS
+RUN conda install /home/user/bps_channel/noarch/arepyextras-runner-1.0.2-py_0.tar.bz2--no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-l1_framing_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-l2b_fd_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-stack_pre_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/arepytools-1.6.1-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-l1_pre_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-l2b_fh_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-stack_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-common-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-l1_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-stack_cal_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-transcoder-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 --no-debs && \
+    conda install /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 --no-debs \
+    && conda clean -afy
+
 # Install missing
 RUN pip install owslib opencv-python
 

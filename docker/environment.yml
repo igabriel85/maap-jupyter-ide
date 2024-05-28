@@ -62,7 +62,6 @@ dependencies:
   - argon2-cffi
   - cffi
   - nox
-  - art
   - argon2-cffi-bindings
   - docutils
   - geopandas
@@ -105,10 +104,10 @@ dependencies:
   - elementpath
   - tox
   - alabaster
-  - jupyterlab-widgets
+  - jupyterlab_widgets
   - appdirs
   - distlib
-  - ee
+  - earthengine-api
   - flake8
   - pycodestyle
   - sphinx
@@ -125,8 +124,10 @@ dependencies:
   - pip
   - nb_conda_kernels
   - pip:
-    - jupyter-resource-usage==0.7.2
-    - rio-tiler==6.2.8
-    - morecantile==5.1.0
+      - fastjsonschema
+      - art
+      - jupyter-resource-usage==0.7.2
+      - rio-tiler==6.2.8
+      - morecantile==5.1.0
 variables:
   MAAP_CONF: '/maap-py/'
