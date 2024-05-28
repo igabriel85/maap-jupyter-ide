@@ -147,6 +147,10 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 #    $CONDA_DIR/bin/conda init zsh && \
 #    $CONDA_DIR/bin/conda init
 
+# Add channels, after conde index execution
+RUN $CONDA_DIR/bin/conda config --prepend channels /home/user/bps_channel && \
+    $CONDA_DIR/bin/conda config --prepend channels /home/user/btk_channel
+
 # Create env
 COPY environment.yml /tmp
 RUN $CONDA_DIR/bin/conda env create -y -f "/tmp/environment.yml" \
@@ -173,25 +177,23 @@ RUN echo "source activate pymaap" > ~/.bashrc
 #RUN $CONDA_DIR/bin/conda index --verbose $HOME/bps_channel/noarch && \
 #    $CONDA_DIR/bin/conda index --verbose $HOME/btk_channel/noarch
 
-# Add channels, after conde index execution
-RUN $CONDA_DIR/bin/conda config --prepend channels /home/user/bps_channel && \
-    $CONDA_DIR/bin/conda config --prepend channels /home/user/btk_channel
+
 
 # install BTK
-RUN conda install /home/user/btk_channel/noarch/btklogger-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkdatamgmt-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkdatamgmtascii-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkdatamgmtaux-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkdatamgmtbrk-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkdatamgmtdgm-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkqualitytools-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkprocessor-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkprocessorl1-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkprocessorl1framing-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkprocessorstack-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkprocessorl2-2.3.2-py_0.tar.bz2 && \
-    conda install /home/user/btk_channel/noarch/btkdevkit-2.3.2-py_0.tar.bz2 && \
-    conda clean -afy
+RUN $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btklogger-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmt-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtascii-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtaux-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtbrk-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtdgm-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkqualitytools-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessor-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorl1-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorl1framing-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorstack-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorl2-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdevkit-2.3.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda clean -afy
 
 
 # install BPS
