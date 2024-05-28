@@ -212,8 +212,8 @@ RUN conda install -n pymaap /home/user/bps_channel/noarch/arepyextras-runner-1.0
     conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 && \
     conda install -n pymaap /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 && \
     conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 && \
-#    conda install -n pymaap /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 && \
-#    conda install -n pymaap /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 && \
+    $CONDA_DIR/envs/pymaap/bin/pip install /home/user/bps_channel/noarch/arepyextras_quality-1.1.0-py3-none-any.whl && \
+    $CONDA_DIR/envs/pymaap/bin/pip install /home/user/bps_channel/noarch/arepyapps_copernicus_dem-2.1.0-py3-none-any.whl && \
     conda clean -afy
 
 # Install missing
