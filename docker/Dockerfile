@@ -158,7 +158,9 @@ RUN mkdir -p $HOME/bps_channel/noarch && \
 COPY ./bps_channel/noarch/ $HOME/bps_channel/noarch/
 COPY ./btk_channel/noarch/ $HOME/btk_channel/noarch/
 
-# decompress
+# conda init
+RUN $CONDA_DIR/bin/conda init bash && \
+    $CONDA_DIR/bin/conda init zsh
 
 # add to conda
 RUN $CONDA_DIR/bin/conda index --verbose $HOME/bps_channel/noarch && \
