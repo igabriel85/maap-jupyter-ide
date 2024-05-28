@@ -3,8 +3,8 @@ channels:
   - conda-forge
   - defaults
   - intel
-  - file:///home/user/btk_channel/noarch
-  - file:///home/user/bps_channel/noarch
+  - file:///home/user/btk_channel/
+  - file:///home/user/bps_channel/
   - nodefaults
 dependencies:
   - python=3.9.17
