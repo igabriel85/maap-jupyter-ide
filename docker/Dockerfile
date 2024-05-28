@@ -180,41 +180,41 @@ RUN echo "source activate pymaap" > ~/.bashrc
 SHELL ["/bin/bash", "-c"]
 
 # install BTK
-RUN $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btklogger-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmt-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtascii-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtaux-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtbrk-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdatamgmtdgm-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkqualitytools-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessor-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorl1-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorl1framing-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorstack-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkprocessorl2-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btkdevkit-2.3.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda clean -afy
+RUN conda install -n pymaap /home/user/btk_channel/noarch/btklogger-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmt-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtascii-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtaux-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtbrk-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtdgm-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkqualitytools-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessor-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorl1-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorl1framing-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorstack-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorl2-2.3.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/btk_channel/noarch/btkdevkit-2.3.2-py_0.tar.bz2 && \
+    conda clean -afy
 
 
 # install BPS
-RUN $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-runner-1.0.2-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_framing_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2b_fd_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_pre_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepytools-1.6.1-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_pre_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2b_fh_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-common-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_cal_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-transcoder-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 && \
-#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 && \
-#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 && \
-    $CONDA_DIR/bin/conda clean -afy
+RUN conda install -n pymaap /home/user/bps_channel/noarch/arepyextras-runner-1.0.2-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_framing_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-l2b_fd_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_pre_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/arepytools-1.6.1-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_pre_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-l2b_fh_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-common-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_cal_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-transcoder-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 && \
+    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 && \
+#    conda install -n pymaap /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 && \
+#    conda install -n pymaap /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 && \
+    conda clean -afy
 
 # Install missing
 RUN pip install owslib opencv-python
@@ -223,9 +223,6 @@ RUN pip install owslib opencv-python
 RUN mkdir $HOME/maap-py \
     && git clone --single-branch --branch v3.1.4 https://github.com/MAAP-Project/maap-py.git $HOME/maap-py/ \
     && pip install -e $HOME/maap-py/
-
-# use conda env
-RUN echo "source activate pymaap" > ~/.bashrc
 
 # Move MAAP stack scpecific scripts to $HOME
 COPY RestClient.py $HOME/RestClient.py
@@ -293,7 +290,6 @@ RUN echo "c.NotebookApp.ip = '*'" >>${CONFIG} && \
     echo "c.NotebookApp.open_browser = False" >>${CONFIG} && \
     echo "c.NotebookApp.iopub_data_rate_limit=10000000000" >>${CONFIG} && \
     echo "c.NotebookApp.terminado_settings = {'shell_command': ['/bin/bash']}" >>${CONFIG}
-
 
 RUN echo "c.InteractiveShellApp.exec_lines = ['%matplotlib inline']" >>${CONFIG_IPYTHON}
 
