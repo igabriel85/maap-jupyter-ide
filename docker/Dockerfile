@@ -194,23 +194,23 @@ RUN $CONDA_DIR/bin/conda install /home/user/btk_channel/noarch/btklogger-2.3.2-p
 
 
 # install BPS
-RUN $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-runner-1.0.2-py_0.tar.bz2--no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_framing_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2b_fd_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_pre_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepytools-1.6.1-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_pre_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2b_fh_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-common-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_cal_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-transcoder-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 --no-debs && \
-#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 --no-debs && \
-#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 --no-debs && \
+RUN $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-runner-1.0.2-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_framing_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2b_fd_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_pre_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepytools-1.6.1-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_pre_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2b_fh_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-common-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_cal_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-transcoder-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 && \
+    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 && \
+#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-quality-1.1.1-py_0.tar.bz2 && \
+#    $CONDA_DIR/bin/conda install /home/user/bps_channel/noarch/arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2 && \
     $CONDA_DIR/bin/conda clean -afy
 
 # Install missing
