@@ -142,6 +142,11 @@ ENV HOME=/home/user
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $CONDA_DIR && rm ~/miniconda.sh
 
+# Conda init
+#RUN $CONDA_DIR/bin/conda init bash
+#    $CONDA_DIR/bin/conda init zsh && \
+#    $CONDA_DIR/bin/conda init
+
 # Create env
 COPY environment.yml /tmp
 RUN $CONDA_DIR/bin/conda env create -y -f "/tmp/environment.yml" \
@@ -283,7 +288,9 @@ RUN jupyter notebook --generate-config --allow-root && \
 
 RUN echo "c.NotebookApp.ip = '*'" >>${CONFIG} && \
     echo "c.NotebookApp.open_browser = False" >>${CONFIG} && \
-    echo "c.NotebookApp.iopub_data_rate_limit=10000000000" >>${CONFIG}
+    echo "c.NotebookApp.iopub_data_rate_limit=10000000000" >>${CONFIG} && \
+    echo "c.NotebookApp.terminado_settings = {'shell_command': ['/bin/bash']}" >>${CONFIG}
+
 
 RUN echo "c.InteractiveShellApp.exec_lines = ['%matplotlib inline']" >>${CONFIG_IPYTHON}
 
