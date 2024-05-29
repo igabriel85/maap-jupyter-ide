@@ -142,78 +142,42 @@ ENV HOME=/home/user
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     bash ~/miniconda.sh -b -p $CONDA_DIR && rm ~/miniconda.sh
 
-# Conda init
-#RUN $CONDA_DIR/bin/conda init bash
-#    $CONDA_DIR/bin/conda init zsh && \
-#    $CONDA_DIR/bin/conda init
-
-# Setup BPS and BTK
-# Copy files
-RUN mkdir -p $HOME/bps_channel/noarch && \
-    mkdir -p $HOME/btk_channel/noarch
-
-COPY ./bps_channel/noarch/ $HOME/bps_channel/noarch/
-COPY ./btk_channel/noarch/ $HOME/btk_channel/noarch/
-
-# add to conda
-#RUN $CONDA_DIR/bin/conda index --verbose $HOME/bps_channel/noarch && \
-#    $CONDA_DIR/bin/conda index --verbose $HOME/btk_channel/noarch
-
-# Add channels, after conde index execution
-RUN $CONDA_DIR/bin/conda config --prepend channels /home/user/bps_channel && \
-    $CONDA_DIR/bin/conda config --prepend channels /home/user/btk_channel
-
-# Create env
-COPY environment.yml /tmp
-RUN $CONDA_DIR/bin/conda env create -y -f "/tmp/environment.yml" \
-    && find $CONDA_DIR/ -follow -type f -name '*.a' -delete \
-    && find $CONDA_DIR/ -follow -type f -name '*.js.map' -delete \
-    && $CONDA_DIR/bin/conda clean -afy
-
 # conda init
 RUN $CONDA_DIR/bin/conda init bash
-
-# use conda env
-RUN echo "source activate pymaap" > ~/.bashrc
 
 #activate conda env during build
 SHELL ["/bin/bash", "-c"]
 
+# copy btk tar files
+COPY btk.tar.gz $HOME/btk.tar.gz
+
+# Extract BTK
+RUN tar -xvf $HOME/btk.tar.gz -C $HOME
+
+# Set variables.py
+
+# delete old variables.py
+RUN rm -f $HOME/btk/install/variables.py
+
+# create new variables.py
+RUN echo "bps_path = '$HOME/btk/libs/btkprocessor/pkgs'" >> $HOME/btk/install/variables.py && \
+    echo "btk_path = '$HOME/btk/install/btk_tar'" >> $HOME/btk/install/variables.py && \
+    echo "btk_project = '$HOME/btk'" >> $HOME/btk/install/variables.py && \
+    echo "env_name = 'pymaap'" >> $HOME/btk/install/variables.py && \
+    echo "path_conda = '$CONDA_DIR'" >> $HOME/btk/install/variables.py
+
+# mark install scritp as executable
+RUN chmod +x $HOME/btk/install/install.bash
+
 # install BTK
-RUN conda install -n pymaap /home/user/btk_channel/noarch/btklogger-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmt-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtascii-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtaux-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtbrk-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkdatamgmtdgm-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkqualitytools-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessor-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorl1-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorl1framing-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorstack-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkprocessorl2-2.3.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/btk_channel/noarch/btkdevkit-2.3.2-py_0.tar.bz2 && \
-    conda clean -afy
+RUN $HOME/btk/install/install.bash
 
+# use conda env
+RUN echo "source activate pymaap" > ~/.bashrc
 
-# install BPS
-RUN conda install -n pymaap /home/user/bps_channel/noarch/arepyextras-runner-1.0.2-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_framing_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-l2b_fd_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_pre_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/arepytools-1.6.1-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_pre_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-l2b_fh_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-common-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_cal_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-transcoder-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-l1_core_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-l2a_processor-2.2.0-py_0.tar.bz2 && \
-    conda install -n pymaap /home/user/bps_channel/noarch/bps-stack_coreg_processor-2.2.0-py_0.tar.bz2 && \
-    $CONDA_DIR/envs/pymaap/bin/pip install /home/user/bps_channel/noarch/arepyextras_quality-1.1.0-py3-none-any.whl && \
-    $CONDA_DIR/envs/pymaap/bin/pip install /home/user/bps_channel/noarch/arepyapps_copernicus_dem-2.1.0-py3-none-any.whl && \
+# install additional libraries and clean
+RUN conda install -n pymaap nb_conda_kernels && \
+    conda install -n pymaap nodejs && \
     conda clean -afy
 
 # Install missing
