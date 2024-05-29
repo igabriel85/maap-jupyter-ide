@@ -148,6 +148,11 @@ RUN $CONDA_DIR/bin/conda init bash
 #activate conda env during build
 SHELL ["/bin/bash", "-c"]
 
+
+# set mamba as default solver
+RUN conda install -n base conda-libmamba-solver
+RUN conda config --set solver libmamba
+
 # copy btk tar files
 USER 0
 COPY btk.tar.gz $HOME/btk.tar.gz
