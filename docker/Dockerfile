@@ -187,8 +187,8 @@ RUN ./install.bash
 RUN echo "source activate pymaap" > ~/.bashrc
 
 # install additional libraries and clean
-RUN conda install -n pymaap nb_conda_kernels && \
-    conda install -n pymaap nodejs && \
+RUN conda install  nb_conda_kernels && \
+    conda install  nodejs && \
     conda clean -afy
 
 # Install missing
