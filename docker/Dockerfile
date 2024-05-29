@@ -149,13 +149,17 @@ RUN $CONDA_DIR/bin/conda init bash
 SHELL ["/bin/bash", "-c"]
 
 # copy btk tar files
+USER 0
 COPY btk.tar.gz $HOME/btk.tar.gz
 
 # Extract BTK
-RUN tar -xvf $HOME/btk.tar.gz -C $HOME
+RUN tar xvf $HOME/btk.tar.gz -C $HOME
 
+# Set permissions
+RUN chown -R 1234:0 $HOME/btk
 # Set variables.py
 
+USER 1234
 # delete old variables.py
 RUN rm -f $HOME/btk/install/variables.py
 
