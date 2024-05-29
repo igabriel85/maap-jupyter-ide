@@ -174,7 +174,9 @@ RUN echo "bps_path = '$HOME/btk/libs/btkprocessor/pkgs'" >> $HOME/btk/install/va
 RUN chmod +x $HOME/btk/install/install.bash
 
 # install BTK
-RUN $HOME/btk/install/install.bash
+WORKDIR $HOME/btk/install
+RUN ls -la
+RUN ./install.bash
 
 # use conda env
 RUN echo "source activate pymaap" > ~/.bashrc
