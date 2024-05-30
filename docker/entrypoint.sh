@@ -19,6 +19,29 @@ whoami
 which python
 echo $PATH
 
+# pack old env
+
+DIR = $PROJECT_SOURCE/envs/pymaap_btk/
+# Check if directory exists
+if [ -d "$DIR" ]; then
+    source $PROJECT_SOURCE/envs/pymaap_btk/bin/activate
+    $PROJECT_SOURCE/envs/pymaap_btk/bin/conda-unpack
+else
+    echo "pymaap_btk env does not exist. Creating new env."
+    conda-pack -n base -o /tmp/pymaap_btk.tar
+    mkdir -p $PROJECT_SOURCE/envs/pymaap_btk/
+    mv /tmp/pymaap_btk.tar $PROJECT_SOURCE/envs/pymaap_btk/pymaap.tar
+    # untar env
+    cd $PROJECT_SOURCE/envs/pymaap_btk/
+    tar xvf pymaap.tar
+    rm pymaap.tar
+    source $PROJECT_SOURCE/envs/pymaap_btk/bin/activate
+    $PROJECT_SOURCE/envs/pymaap_btk/bin/conda-unpackXW
+fi
+
+
+
+
 VERSION=$(jupyter lab --version)
 echo "Starting Jupyter Lab"
 echo "Jupyter Lab version: $VERSION"
