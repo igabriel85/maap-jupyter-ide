@@ -129,7 +129,7 @@ RUN \
 ENV CONDA_DIR /home/user/conda
 
 # Appending to PATH conda and conda env
-ENV PATH "$PATH:$CONDA_DIR/envs/pymaap/bin"
+#ENV PATH "$PATH:$CONDA_DIR/envs/pymaap/bin"
 ENV PATH "$PATH:$CONDA_DIR/bin"
 ENV HOME=/home/user
 
@@ -177,6 +177,8 @@ RUN $CONDA_DIR/bin/conda env create -y -f env-pymaap-btk-stripped.yaml
 
 #activate conda env during build
 #SHELL ["/bin/bash", "-c"]
+# use conda env
+RUN echo "source activate pymaap" > ~/.bashrc
 SHELL ["conda", "run","--no-capture-output" ,"-n", "pymaap", "/bin/bash", "-c"]
 
 # patch install_pach.sh to accelerate conda 
@@ -290,7 +292,7 @@ RUN conda install -c conda-forge conda-pack
 WORKDIR /projects
 
 # use conda env
-RUN echo "source activate pymaap" > ~/.bashrc
+#RUN echo "source activate pymaap" > ~/.bashrc
 
 # Expose port
 EXPOSE 8888
