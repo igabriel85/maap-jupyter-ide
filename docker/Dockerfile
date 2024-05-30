@@ -167,7 +167,9 @@ RUN $CONDA_DIR/bin/conda init bash
 
 
 # create conda env
-RUN $CONDA_DIR/bin/conda create -n pymaap python=3.9 -y
+#RUN $CONDA_DIR/bin/conda create -n pymaap python=3.9 -y
+COPY env-pymaap-btk-stripped.yaml /
+RUN $CONDA_DIR/bin/conda env create -y -f env-pymaap-btk-stripped.yaml
 
 #activate conda env during build
 #SHELL ["/bin/bash", "-c"]
