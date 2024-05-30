@@ -197,7 +197,7 @@ RUN ls -la
 RUN ./install.bash
 
 # install additional libraries and clean
-RUN conda install -y nb_conda_kernels nodejs yarn && \
+RUN conda install -y nb_conda_kernels nodejs yarn conda-pack && \
     conda clean -afy
 
 # Install missing
@@ -285,14 +285,14 @@ RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
        echo "    }" >> $CONFIG && \
        echo "}" >> $CONFIG
 
-# install conda-pack
-RUN conda install -c conda-forge conda-pack
+# rename base to pymaap
+conda rename -n base pymaap
 
 # Set the working directory
 WORKDIR /projects
 
 # use conda env
-#RUN echo "source activate pymaap" > ~/.bashrc
+RUN echo "source activate pymaap" > ~/.bashrc
 
 # Expose port
 EXPOSE 8888
