@@ -32,8 +32,7 @@ else
     echo "$VAR_NAME is already set to '${!VAR_NAME}'."
 fi
 
-
-DIR = $PROJECT_SOURCE/envs/pymaap_btk/
+DIR="$PROJECT_SOURCE/envs/pymaap_btk/"
 # Check if directory exists
 if [ -d "$DIR" ]; then
     source $PROJECT_SOURCE/envs/pymaap_btk/bin/activate
