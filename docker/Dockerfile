@@ -206,7 +206,7 @@ RUN pip install owslib opencv-python
 # Install maap-py library
 RUN mkdir $HOME/maap-py \
     && git clone --single-branch --branch v3.1.4 https://github.com/MAAP-Project/maap-py.git $HOME/maap-py/ \
-    && pip install -e $HOME/maap-py/
+    && pip install $HOME/maap-py/
 
 # Move MAAP stack scpecific scripts to $HOME
 COPY RestClient.py $HOME/RestClient.py
