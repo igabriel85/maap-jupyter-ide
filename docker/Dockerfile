@@ -286,7 +286,7 @@ RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
        echo "}" >> $CONFIG
 
 # rename base to pymaap
-conda rename -n base pymaap
+RUN conda rename -n base pymaap
 
 # Set the working directory
 WORKDIR /projects
