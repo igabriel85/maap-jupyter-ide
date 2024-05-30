@@ -290,7 +290,7 @@ WORKDIR /projects
 
 # use conda env
 #RUN echo "source activate base" > ~/.bashrc
-RUN echo "source activate source $PROJECT_SOURCE/envs/pymaap_btk/bin/activate" > ~/.bashrc
+RUN echo "source source $PROJECT_SOURCE/envs/pymaap_btk/bin/activate" > ~/.bashrc
 
 # Expose port
 EXPOSE 8888
