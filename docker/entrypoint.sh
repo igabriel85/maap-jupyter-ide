@@ -1,5 +1,7 @@
 #!/bin/bash
-#source activate pymaap
+
+export PATH=/home/user/conda/envs/pymaap/bin:$PATH
+
 # Ensure $HOME exists when starting
 if [ ! -d "${HOME}" ]; then
   mkdir -p "${HOME}"
@@ -16,8 +18,6 @@ fi
 whoami
 which python
 echo $PATH
-
-
 
 VERSION=$(jupyter lab --version)
 echo "Starting Jupyter Lab"

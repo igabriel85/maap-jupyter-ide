@@ -168,19 +168,22 @@ RUN $CONDA_DIR/bin/conda init bash
 
 # create conda env
 #RUN $CONDA_DIR/bin/conda create -n pymaap python=3.9 -y
-COPY env-pymaap-btk-stripped.yaml /
+COPY patch/env-pymaap-btk-stripped.yaml /
 RUN $CONDA_DIR/bin/conda env create -y -f env-pymaap-btk-stripped.yaml
+RUN rm -f /env-pymaap-btk-stripped.yaml
+
+# set mamba as default solver
+# RUN conda install -y conda-libmamba-solver
+# RUN conda config --set solver libmamba
 
 #activate conda env during build
 #SHELL ["/bin/bash", "-c"]
 SHELL ["conda", "run","--no-capture-output" ,"-n", "pymaap", "/bin/bash", "-c"]
 
-
-# set mamba as default solver
-RUN conda install -y conda-libmamba-solver
-RUN conda config --set solver libmamba
-
-
+# patch install_pach.sh to accelerate conda 
+COPY patch/install_pack.bash  $HOME/btk/install/install_pack.bash
+# patch packages_to_install.py to fix missing packages
+COPY patch/packages_to_install.py $HOME/btk/install/packages_to_install.py
 
 # mark install scritp as executable
 RUN chmod +x $HOME/btk/install/install.bash
