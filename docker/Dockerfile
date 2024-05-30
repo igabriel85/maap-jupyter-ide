@@ -129,14 +129,34 @@ RUN \
 ENV CONDA_DIR /home/user/conda
 
 # Appending to PATH conda and conda env
-ENV PATH "$PATH:$CONDA_DIR/envs/pymaap/bin"
+#ENV PATH "$PATH:$CONDA_DIR/envs/pymaap/bin"
 ENV PATH "$PATH:$CONDA_DIR/bin"
+ENV HOME=/home/user
 
 # Ajust permissions
 #RUN chgrp -Rf root /home/user && chmod -Rf g+w /home/user
 
+# copy btk tar files
+COPY btk.tar.gz $HOME/btk.tar.gz
+
+# Extract BTK
+RUN tar xvf $HOME/btk.tar.gz -C $HOME
+
+# Set permissions
+RUN chown -R 1234:0 $HOME/btk
+
+# Set variables.py
 USER 1234
-ENV HOME=/home/user
+
+# delete old variables.py
+RUN rm -f $HOME/btk/install/variables.py
+
+# create new variables.py
+RUN echo "bps_path = '$HOME/btk/libs/btkprocessor/pkgs'" >> $HOME/btk/install/variables.py && \
+    echo "btk_path = '$HOME/btk/install/btk_tar'" >> $HOME/btk/install/variables.py && \
+    echo "btk_project = '$HOME/btk'" >> $HOME/btk/install/variables.py && \
+    echo "env_name = 'pymaap'" >> $HOME/btk/install/variables.py && \
+    echo "path_conda = '$CONDA_DIR'" >> $HOME/btk/install/variables.py
 
 # Miniconda install
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -147,39 +167,18 @@ RUN $CONDA_DIR/bin/conda init bash
 
 
 # create conda env
-RUN conda create -n pymaap python=3.9 -y
-
-# use conda env
-RUN echo "conda activate pymaap" > ~/.bashrc
+RUN $CONDA_DIR/bin/conda create -n pymaap python=3.9 -y
 
 #activate conda env during build
-SHELL ["/bin/bash", "-c"]
+#SHELL ["/bin/bash", "-c"]
+SHELL ["conda", "run","--no-capture-output" ,"-n", "pymaap", "/bin/bash", "-c"]
+
 
 # set mamba as default solver
-RUN conda install conda-libmamba-solver
+RUN conda install -y conda-libmamba-solver
 RUN conda config --set solver libmamba
 
-# copy btk tar files
-USER 0
-COPY btk.tar.gz $HOME/btk.tar.gz
 
-# Extract BTK
-RUN tar xvf $HOME/btk.tar.gz -C $HOME
-
-# Set permissions
-RUN chown -R 1234:0 $HOME/btk
-# Set variables.py
-
-USER 1234
-# delete old variables.py
-RUN rm -f $HOME/btk/install/variables.py
-
-# create new variables.py
-RUN echo "bps_path = '$HOME/btk/libs/btkprocessor/pkgs'" >> $HOME/btk/install/variables.py && \
-    echo "btk_path = '$HOME/btk/install/btk_tar'" >> $HOME/btk/install/variables.py && \
-    echo "btk_project = '$HOME/btk'" >> $HOME/btk/install/variables.py && \
-    echo "env_name = 'pymaap'" >> $HOME/btk/install/variables.py && \
-    echo "path_conda = '$CONDA_DIR'" >> $HOME/btk/install/variables.py
 
 # mark install scritp as executable
 RUN chmod +x $HOME/btk/install/install.bash
@@ -285,6 +284,9 @@ RUN conda install -c conda-forge conda-pack
 
 # Set the working directory
 WORKDIR /projects
+
+# use conda env
+RUN echo "source activate pymaap" > ~/.bashrc
 
 # Expose port
 EXPOSE 8888
