@@ -145,14 +145,18 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 # conda init
 RUN $CONDA_DIR/bin/conda init bash
 
-#activate conda env during build
-SHELL ["/bin/bash", "-c"]
 
 # create conda env
 RUN conda create -n pymaap python=3.9 -y
 
+# use conda env
+RUN echo "conda activate pymaap" > ~/.bashrc
+
+#activate conda env during build
+SHELL ["/bin/bash", "-c"]
+
 # set mamba as default solver
-RUN conda install -n base conda-libmamba-solver
+RUN conda install conda-libmamba-solver
 RUN conda config --set solver libmamba
 
 # copy btk tar files
@@ -184,9 +188,6 @@ RUN chmod +x $HOME/btk/install/install.bash
 WORKDIR $HOME/btk/install
 RUN ls -la
 RUN ./install.bash
-
-# use conda env
-RUN echo "source activate pymaap" > ~/.bashrc
 
 # install additional libraries and clean
 RUN conda install -y nb_conda_kernels && \
