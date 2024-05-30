@@ -285,14 +285,11 @@ RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
        echo "    }" >> $CONFIG && \
        echo "}" >> $CONFIG
 
-# rename base to pymaap
-RUN conda rename -n base pymaap
-
 # Set the working directory
 WORKDIR /projects
 
 # use conda env
-RUN echo "source activate pymaap" > ~/.bashrc
+RUN echo "source activate base" > ~/.bashrc
 
 # Expose port
 EXPOSE 8888
