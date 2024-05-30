@@ -148,6 +148,8 @@ RUN $CONDA_DIR/bin/conda init bash
 #activate conda env during build
 SHELL ["/bin/bash", "-c"]
 
+# create conda env
+RUN conda create -n pymaap python=3.9 -y
 
 # set mamba as default solver
 RUN conda install -n base conda-libmamba-solver
@@ -277,6 +279,8 @@ RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
        echo "    }" >> $CONFIG && \
        echo "}" >> $CONFIG
 
+# install conda-pack
+RUN conda install -c conda-forge conda-pack
 
 # Set the working directory
 WORKDIR /projects
