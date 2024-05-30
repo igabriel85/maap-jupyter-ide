@@ -19,7 +19,19 @@ whoami
 which python
 echo $PATH
 
-# pack old env
+
+# if not in che, env var is not set
+VAR_NAME="PROJECT_SOURCE"
+DEFAULT_VALUE="/projects/maap-jupyter"
+# Check if the environment variable is defined
+if [ -z "${!VAR_NAME}" ]; then
+    # Set the environment variable if it is not defined
+    export $VAR_NAME="$DEFAULT_VALUE"
+    echo "$VAR_NAME was not set. It has been set to '$DEFAULT_VALUE'."
+else
+    echo "$VAR_NAME is already set to '${!VAR_NAME}'."
+fi
+
 
 DIR = $PROJECT_SOURCE/envs/pymaap_btk/
 # Check if directory exists
@@ -28,7 +40,7 @@ if [ -d "$DIR" ]; then
     $PROJECT_SOURCE/envs/pymaap_btk/bin/conda-unpack
 else
     echo "pymaap_btk env does not exist. Creating new env."
-    conda-pack -n base -o /tmp/pymaap_btk.tar
+    conda-pack -p $CONDA_DIR/envs/pymaap -o /tmp/pymaap_btk.tar
     mkdir -p $PROJECT_SOURCE/envs/pymaap_btk/
     mv /tmp/pymaap_btk.tar $PROJECT_SOURCE/envs/pymaap_btk/pymaap.tar
     # untar env
@@ -36,7 +48,7 @@ else
     tar xvf pymaap.tar
     rm pymaap.tar
     source $PROJECT_SOURCE/envs/pymaap_btk/bin/activate
-    $PROJECT_SOURCE/envs/pymaap_btk/bin/conda-unpackXW
+    $PROJECT_SOURCE/envs/pymaap_btk/bin/conda-unpack
 fi
 
 
