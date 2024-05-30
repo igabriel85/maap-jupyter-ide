@@ -129,7 +129,7 @@ RUN \
 ENV CONDA_DIR /home/user/conda
 
 # Appending to PATH conda and conda env
-#ENV PATH "$PATH:$CONDA_DIR/envs/pymaap/bin"
+ENV PATH "$PATH:$CONDA_DIR/envs/pymaap/bin"
 ENV PATH "$PATH:$CONDA_DIR/bin"
 ENV HOME=/home/user
 

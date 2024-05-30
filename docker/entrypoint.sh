@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH=/home/user/conda/envs/pymaap/bin:$PATH
+#export PATH=/home/user/conda/envs/pymaap/bin:$PATH
 
 # Ensure $HOME exists when starting
 if [ ! -d "${HOME}" ]; then
