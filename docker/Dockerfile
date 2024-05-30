@@ -170,7 +170,6 @@ RUN $CONDA_DIR/bin/conda init bash
 #RUN $CONDA_DIR/bin/conda create -n pymaap python=3.9 -y
 COPY patch/env-pymaap-btk-stripped.yaml /
 RUN $CONDA_DIR/bin/conda env create -y -f env-pymaap-btk-stripped.yaml
-RUN rm -f /env-pymaap-btk-stripped.yaml
 
 # set mamba as default solver
 # RUN conda install -y conda-libmamba-solver
@@ -182,6 +181,8 @@ SHELL ["conda", "run","--no-capture-output" ,"-n", "pymaap", "/bin/bash", "-c"]
 
 # patch install_pach.sh to accelerate conda 
 COPY patch/install_pack.bash  $HOME/btk/install/install_pack.bash
+COPY patch/install_bps_btk_packages.bash  $HOME/btk/install/install_bps_btk_packages.bash
+
 # patch packages_to_install.py to fix missing packages
 COPY patch/packages_to_install.py $HOME/btk/install/packages_to_install.py
 
@@ -194,9 +195,7 @@ RUN ls -la
 RUN ./install.bash
 
 # install additional libraries and clean
-RUN conda install -y nb_conda_kernels && \
-    conda install -y nodejs && \
-    conda install -y yarn && \
+RUN conda install -y nb_conda_kernels nodejs yarn && \
     conda clean -afy
 
 # Install missing
