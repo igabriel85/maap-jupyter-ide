@@ -55,7 +55,6 @@ list_deps = [
     "argon2-cffi",
     "cffi",
     "nox",
-    "art",
     "argon2-cffi-bindings",
     "docutils",
     "geopandas",

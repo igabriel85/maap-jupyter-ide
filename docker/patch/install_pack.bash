@@ -32,6 +32,8 @@ do
     fi
 done
 
+conda info
+
 # Packages Install
 ldt=()
 for dep in "${list_deps[@]}"

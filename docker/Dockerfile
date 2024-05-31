@@ -20,11 +20,11 @@ LABEL modified.by="Gabriel Iuhasz"
 LABEL modified.version="0.0.1"
 LABEL modified.for="MAAP Jupyter IDE"
 
-USER 0
-
 # add env variables
 ENV HOME=/home/tooling
 ENV BMAP_BACKEND_URL=http://backend-val.biomass-maap.com/bmap-web/
+
+USER 0
 
 RUN mkdir -p /home/tooling/
 
@@ -124,23 +124,30 @@ RUN \
     cp /home/user/.bash_profile /home/tooling/.bash_profile && \
     chown 1234 /home/tooling/.bashrc /home/tooling/.bash_profile
 
-
-# Set CONDA environment variables
-ENV CONDA_DIR /home/user/conda
-
-# Appending to PATH conda and conda env
-#ENV PATH "$PATH:$CONDA_DIR/envs/pymaap/bin"
-ENV PATH "$PATH:$CONDA_DIR/bin"
-ENV HOME=/home/user
-
 # Ajust permissions
 #RUN chgrp -Rf root /home/user && chmod -Rf g+w /home/user
+
+# Set CONDA and system environment variables
+ENV CONDA_DIR /home/user/conda
+ENV CONDA_MAAP_ENV "pymaap"
+ENV PATH "$PATH:$CONDA_DIR/bin"
+ENV HOME=/home/user
 
 # copy btk tar files
 COPY btk.tar.gz $HOME/btk.tar.gz
 
 # Extract BTK
 RUN tar xvf $HOME/btk.tar.gz -C $HOME
+RUN rm -f $HOME/btk.tar.gz
+
+# patch install_*.sh to accelerate conda 
+COPY patch/install_pack.bash  $HOME/btk/install/install_pack.bash
+COPY patch/install_bps_btk_packages.bash  $HOME/btk/install/install_bps_btk_packages.bash
+COPY patch/install_list.bash  $HOME/btk/install/install_list.bash
+#COPY patch/install.bash  $HOME/btk/install/install.bash
+# patch packages_to_install.py to fix missing packages
+COPY patch/packages_to_install.py $HOME/btk/install/packages_to_install.py
+COPY patch/env-pymaap-btk-stripped.yaml /
 
 # Set permissions
 RUN chown -R 1234:0 $HOME/btk
@@ -148,14 +155,11 @@ RUN chown -R 1234:0 $HOME/btk
 # Set variables.py
 USER 1234
 
-# delete old variables.py
-RUN rm -f $HOME/btk/install/variables.py
-
 # create new variables.py
-RUN echo "bps_path = '$HOME/btk/libs/btkprocessor/pkgs'" >> $HOME/btk/install/variables.py && \
+RUN echo "bps_path = '$HOME/btk/libs/btkprocessor/pkgs'" > $HOME/btk/install/variables.py && \
     echo "btk_path = '$HOME/btk/install/btk_tar'" >> $HOME/btk/install/variables.py && \
     echo "btk_project = '$HOME/btk'" >> $HOME/btk/install/variables.py && \
-    echo "env_name = 'pymaap'" >> $HOME/btk/install/variables.py && \
+    echo "env_name = '$CONDA_MAAP_ENV'" >> $HOME/btk/install/variables.py && \
     echo "path_conda = '$CONDA_DIR'" >> $HOME/btk/install/variables.py
 
 # Miniconda install
@@ -165,38 +169,28 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 # conda init
 RUN $CONDA_DIR/bin/conda init bash
 
+# create CONDA_MAAP_ENV conda env using a environment.yaml
+RUN $CONDA_DIR/bin/conda env create -y -n $CONDA_MAAP_ENV -f /env-pymaap-btk-stripped.yaml
 
-# create conda env
-#RUN $CONDA_DIR/bin/conda create -n pymaap python=3.9 -y
-COPY patch/env-pymaap-btk-stripped.yaml /
-RUN $CONDA_DIR/bin/conda env create -y -f env-pymaap-btk-stripped.yaml
+# activate CONDA_MAAP_ENV environment by default
+RUN echo "conda activate $CONDA_MAAP_ENV" >> ~/.bashrc
 
-# set mamba as default solver
-# RUN conda install -y conda-libmamba-solver
-# RUN conda config --set solver libmamba
+# switch to conda CONDA_MAAP_ENV environment for installation
+ENV BASH_ENV ~/.bashrc
+SHELL ["/bin/bash", "-c"]
 
-#activate conda env during build
-#SHELL ["/bin/bash", "-c"]
-SHELL ["conda", "run","--no-capture-output" ,"-n", "pymaap", "/bin/bash", "-c"]
-
-# patch install_pach.sh to accelerate conda 
-COPY patch/install_pack.bash  $HOME/btk/install/install_pack.bash
-COPY patch/install_bps_btk_packages.bash  $HOME/btk/install/install_bps_btk_packages.bash
-
-# patch packages_to_install.py to fix missing packages
-COPY patch/packages_to_install.py $HOME/btk/install/packages_to_install.py
-
-# mark install scritp as executable
+# mark install script as executable
 RUN chmod +x $HOME/btk/install/install.bash
 
-# install BTK
+# deploy BTK package
 WORKDIR $HOME/btk/install
-RUN ls -la
+
+# install BTK package
 RUN ./install.bash
 
 # install additional libraries and clean
-RUN conda install -y nb_conda_kernels nodejs yarn && \
-    conda clean -afy
+WORKDIR /
+RUN conda install -y nb_conda_kernels nodejs yarn
 
 # Install missing
 RUN pip install owslib opencv-python
@@ -286,11 +280,19 @@ RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
 # install conda-pack
 RUN conda install -c conda-forge conda-pack
 
+#### CLEANUP PHASE
+USER 0
+# cleanup BTK installation
+RUN rm -f /env-pymaap-btk-stripped.yaml
+# cleanup YUM repos
+RUN yum -y clean all
+# cleanup conda
+RUN conda clean -afy
+#### /END CLEANUP
+
+USER 1234 
 # Set the working directory
 WORKDIR /projects
-
-# use conda env
-RUN echo "source activate pymaap" > ~/.bashrc
 
 # Expose port
 EXPOSE 8888

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export PATH=/home/user/conda/envs/pymaap/bin:$PATH
+source /home/user/conda/etc/profile.d/conda.sh
+conda activate pymaap
 
 # Ensure $HOME exists when starting
 if [ ! -d "${HOME}" ]; then

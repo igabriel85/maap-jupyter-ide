@@ -9,9 +9,9 @@ mapfile -t list_bps_packages < list_bps_packages.txt
 mapfile -t list_conda_install < list_conda_install.txt
 mapfile -t list_deps < list_deps.txt
 
-#conda create --name $env_name --file packages.txt
-#source $path_to_conda/etc/profile.d/conda.sh
-#source $path_to_conda/bin/activate $env_name
+# conda create --name $env_name --file packages.txt
+# source $path_to_conda/etc/profile.d/conda.sh
+# source $path_to_conda/bin/activate $env_name
 
 # Ipykernel configuration
 python -m ipykernel install --user --name=$env_name

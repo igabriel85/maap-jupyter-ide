@@ -1,4 +1,3 @@
-name: pymaap
 channels:
   - defaults
   - intel
@@ -458,4 +457,3 @@ dependencies:
       - werkzeug==3.0.3
       - fastjsonschema==2.16.2
       - art==6.2
-prefix: /home/user/conda/envs/pymaap
