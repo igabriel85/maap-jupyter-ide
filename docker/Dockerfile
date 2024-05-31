@@ -98,7 +98,6 @@ RUN \
     cd - && \
     rm -rf "${TEMP_DIR}"
 
-COPY --chown=0:0 entrypoint.sh /
 COPY --chown=0:0 .stow-local-ignore /home/tooling/
 RUN \
     # add user and configure it
@@ -114,7 +113,6 @@ RUN \
     # Set permissions on /etc/passwd and /home to allow arbitrary users to write
     chgrp -R 0 /home && \
     chmod -R g=u /etc/passwd /etc/group /home && \
-    chmod +x /entrypoint.sh && \
     # Create symbolic links from /home/tooling/ -> /home/user/
     stow . -t /home/user/ -d /home/tooling/ && \
     # .viminfo cannot be a symbolic link for security reasons, so copy it to /home/user/
@@ -278,7 +276,7 @@ RUN echo "c.NotebookApp.tornado_settings = {" >> $CONFIG && \
        echo "}" >> $CONFIG
 
 # install conda-pack
-RUN conda install -c conda-forge conda-pack
+# RUN conda install -c conda-forge conda-pack
 
 #### CLEANUP PHASE
 USER 0
@@ -289,6 +287,9 @@ RUN yum -y clean all
 # cleanup conda
 RUN conda clean -afy
 #### /END CLEANUP
+
+COPY --chown=0:0 entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
 USER 1234 
 # Set the working directory

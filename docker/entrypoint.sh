@@ -1,24 +1,30 @@
 #!/bin/bash
 
 source /home/user/conda/etc/profile.d/conda.sh
-conda activate pymaap
+conda activate base
 
-# Ensure $HOME exists when starting
-if [ ! -d "${HOME}" ]; then
-  mkdir -p "${HOME}"
+if [ ! -d /projects/envs ];then
+  echo "[--] creating conda persistent environments home directory"
+  mkdir -p /projects/envs
 fi
 
-# Add current (arbitrary) user to /etc/passwd and /etc/group
-if ! whoami &> /dev/null; then
-  if [ -w /etc/passwd ]; then
-    echo "${USER_NAME:-user}:x:$(id -u):0:${USER_NAME:-user} user:${HOME}:/bin/bash" >> /etc/passwd
-    echo "${USER_NAME:-user}:x:$(id -u):" >> /etc/group
-  fi
-fi
+echo "[--] add /projects/envs to conda envs_dir"
+conda config --add envs_dirs /projects/envs
 
+echo "[--] clone pymaap into pymaap-btk persistent"
+conda create -p /projects/envs/pymaap-btk --clone /home/user/conda/envs/pymaap
+
+echo "[--] changing default conda enviornment to be loaded on terminal"
+/usr/bin/sed -i 's/conda .* pymaap/conda activate pymaap-btk/' ~/.bashrc
+
+source  ~/.bashrc
+
+echo "[dd] printing various information"
 whoami
 which python
 echo $PATH
+env
+echo "[dd] -------------------------------------------------------------"
 
 VERSION=$(jupyter lab --version)
 echo "Starting Jupyter Lab"
