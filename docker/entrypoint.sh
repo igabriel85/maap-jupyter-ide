@@ -12,7 +12,7 @@ echo "[--] add /projects/envs to conda envs_dir"
 conda config --add envs_dirs /projects/envs
 
 echo "[--] clone pymaap into pymaap-btk persistent"
-conda create -p /projects/envs/pymaap-btk --clone /home/user/conda/envs/pymaap
+conda create -y -p /projects/envs/pymaap-btk --clone /home/user/conda/envs/pymaap
 
 echo "[--] changing default conda enviornment to be loaded on terminal"
 /usr/bin/sed -i 's/conda .* pymaap/conda activate pymaap-btk/' ~/.bashrc
