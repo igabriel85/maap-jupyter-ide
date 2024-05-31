@@ -16,7 +16,7 @@ if [ -d /projects/envs/pymaap-btk ];then
   if [ ! -d /projects/envs/pymaap-btk/conda-meta ];then
     rm -rf /projects/envs/pymaap-btk
     _clone_env=1
-  if
+  fi
 else
   _clone_env=1
 fi
