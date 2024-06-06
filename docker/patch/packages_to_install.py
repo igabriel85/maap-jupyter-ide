@@ -170,7 +170,7 @@ list_bps_packages = [
    "bps-l1_core_processor-2.2.0-py_0.tar.bz2",
    "bps-l2a_processor-2.2.0-py_0.tar.bz2",
    "bps-stack_coreg_processor-2.2.0-py_0.tar.bz2",
-   "arepyextras-quality-1.1.1-py_0.tar.bz2",
-   "arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2"
+#    "arepyextras-quality-1.1.1-py_0.tar.bz2",
+#    "arepyextras-copernicus_dem_extractor-3.1.3-py_0.tar.bz2"
 ]
 

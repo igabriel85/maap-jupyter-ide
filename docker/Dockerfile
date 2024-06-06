@@ -142,7 +142,7 @@ RUN rm -f $HOME/btk.tar.gz
 COPY patch/install_pack.bash  $HOME/btk/install/install_pack.bash
 COPY patch/install_bps_btk_packages.bash  $HOME/btk/install/install_bps_btk_packages.bash
 COPY patch/install_list.bash  $HOME/btk/install/install_list.bash
-#COPY patch/install.bash  $HOME/btk/install/install.bash
+COPY patch/arepyextras_copernicus_dem_extractor-3.1.3-py3-none-any.whl $HOME/btk/libs/btkprocessor/pkgs/arepyextras_copernicus_dem_extractor-3.1.3-py3-none-any.whl
 # patch packages_to_install.py to fix missing packages
 COPY patch/packages_to_install.py $HOME/btk/install/packages_to_install.py
 COPY patch/env-pymaap-btk-stripped.yaml /
@@ -190,8 +190,10 @@ RUN ./install.bash
 WORKDIR /
 RUN conda install -y nb_conda_kernels nodejs yarn
 
-# Install missing
-RUN pip install owslib opencv-python
+# install missing arepyextras
+RUN pip install $HOME/btk/libs/btkprocessor/pkgs/arepyextras_quality-1.1.0-py3-none-any.whl
+RUN pip install $HOME/btk/libs/btkprocessor/pkgs/arepyapps_copernicus_dem-2.1.0-py3-none-any.whl
+RUN pip install $HOME/btk/libs/btkprocessor/pkgs/arepyextras_copernicus_dem_extractor-3.1.3-py3-none-any.whl
 
 # Install maap-py library
 RUN mkdir $HOME/maap-py \

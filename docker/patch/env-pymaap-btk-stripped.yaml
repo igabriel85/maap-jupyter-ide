@@ -48,6 +48,7 @@ dependencies:
   - cached-property=1.5.2=py_0
   - cachetools=5.3.3=py39h06a4308_0
   - cairo=1.16.0=hb05425b_5
+  - cartopy=0.22.0=py39h1128e8f_0
   - certifi=2024.2.2=pyhd8ed1ab_0
   - cffi=1.16.0=py39h5eee18b_1
   - cfitsio=4.1.0=hd9d235c_0
@@ -273,6 +274,7 @@ dependencies:
   - numpy-base=1.23.5=py39h1e6e340_0
   - odc-geo=0.4.5=pyhd8ed1ab_0
   - odc-stac=0.3.9=pyhd8ed1ab_0
+  - opencv-python-headless=4.5.5.64=py39_2
   - openjpeg=2.5.0=h7d73246_1
   - openssl=3.1.5=h4ab18f5_1
   - overrides=7.4.0=py39h06a4308_0
@@ -421,6 +423,7 @@ dependencies:
   - widgetsnbextension=4.0.10=py39h06a4308_0
   - xarray=2023.6.0=py39h06a4308_0
   - xerces-c=3.2.4=h55805fa_1
+  - xmlschema=2.3.0=pyhd8ed1ab_0
   - xmltodict=0.13.0=py39h06a4308_0
   - xsdata=24.5=pyhd8ed1ab_0
   - xyzservices=2022.9.0=py39h06a4308_1
@@ -448,8 +451,7 @@ dependencies:
       - jmespath==1.0.1
       - mapboxgl==0.10.2
       - moto==5.0.8
-      - mypy-boto3-s3==1.34.105
-      - opencv-python==4.9.0.80
+      - mypy-boto3-s3==1.34.105 
       - owslib==0.31.0
       - responses==0.25.0
       - s3transfer==0.8.2
