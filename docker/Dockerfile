@@ -200,6 +200,8 @@ RUN mkdir $HOME/maap-py \
     && git clone --single-branch --branch v3.1.4 https://github.com/MAAP-Project/maap-py.git $HOME/maap-py/ \
     && pip install $HOME/maap-py/
 
+RUN echo 'export PATH=$PATH:$HOME/btk/bin' >> ~/.bashrc
+
 # Move MAAP stack scpecific scripts to $HOME
 COPY RestClient.py $HOME/RestClient.py
 COPY quicklook_raster.py $HOME/quicklook_raster.py

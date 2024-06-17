@@ -2,6 +2,7 @@
 
 source /home/user/conda/etc/profile.d/conda.sh
 conda activate pymaap
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib
 
 # if [ ! -d /projects/envs ];then
 #   echo "[--] creating conda persistent environments home directory"

@@ -5,7 +5,7 @@ mapfile -t list_deps < list_deps.txt
 
 for dep in "${list_conda_install[@]}"
 do
-    if [[ "$dep" == "conda-build<24" ]]; then
+    if [[ "$dep" == "'conda-build<24'" ]]; then
         conda install -y "$dep"
         echo "Successfully installed"
         mkdir -p local_channel/noarch
