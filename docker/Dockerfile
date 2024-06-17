@@ -201,6 +201,7 @@ RUN mkdir $HOME/maap-py \
     && pip install $HOME/maap-py/
 
 RUN echo 'export PATH=$PATH:$HOME/btk/bin' >> ~/.bashrc
+RUN echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib' >> ~/.bashrc
 
 # Move MAAP stack scpecific scripts to $HOME
 COPY RestClient.py $HOME/RestClient.py
