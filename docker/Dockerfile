@@ -201,7 +201,6 @@ RUN mkdir $HOME/maap-py \
     && pip install $HOME/maap-py/
 
 RUN echo 'export PATH=$PATH:$HOME/btk/bin' >> ~/.bashrc
-RUN echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib' >> ~/.bashrc
 
 # Move MAAP stack scpecific scripts to $HOME
 COPY RestClient.py $HOME/RestClient.py
@@ -217,6 +216,10 @@ COPY initCredentials.sh $HOME/initCredentials.sh
 COPY shareAlgorithm.sh $HOME/shareAlgorithm.sh
 
 USER 0
+
+RUN echo "$CONDA_PREFIX/lib" > /etc/ld.so.conf.d/pymaap-libs.conf
+RUN ldconfig
+
 RUN  chmod +x $HOME/initTemplate.sh
 RUN  chmod +x $HOME/shareAlgorithm.sh
 RUN  chmod +x $HOME/ingestData.sh
