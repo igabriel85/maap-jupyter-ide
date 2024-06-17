@@ -178,6 +178,7 @@ ENV BASH_ENV ~/.bashrc
 SHELL ["/bin/bash", "-c"]
 
 # mark install script as executable
+RUN chmod +x $HOME/btk/bin/*
 RUN chmod +x $HOME/btk/install/install.bash
 
 # deploy BTK package
