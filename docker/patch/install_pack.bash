@@ -14,7 +14,7 @@ do
         #conda install -c conda-forge 'libarchive=3.7.2' -y
         #conda install -c conda-forge cartopy -y
         #conda install -c conda-forge 'gdal<3.6,>=3.5' -y
-        conda install -c conda-forge conda-verify mamba 'libarchive=3.7.2' cartopy 'gdal<3.6,>=3.5' -y
+        conda install -c conda-forge conda-verify mamba 'libarchive=3.6.2' cartopy 'gdal<3.6,>=3.5' -y
         #conda install 'ruamel.yaml<0.18.0' -y
         #conda install 'opencv-python-headless<4.7' -y
         #conda install 'numpy<1.24,>=1.20' -y

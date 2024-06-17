@@ -218,8 +218,9 @@ COPY shareAlgorithm.sh $HOME/shareAlgorithm.sh
 
 USER 0
 
-# RUN echo "$CONDA_PREFIX/lib" > /etc/ld.so.conf.d/pymaap-libs.conf
-# RUN ldconfig
+RUN ldconfig -v | grep '^/' | cut -d":" -f1 > /etc/ld.so.conf.d/00-libs.conf
+RUN echo "$CONDA_PREFIX/lib" > /etc/ld.so.conf.d/pymaap-libs.conf
+RUN ldconfig
 
 RUN  chmod +x $HOME/initTemplate.sh
 RUN  chmod +x $HOME/shareAlgorithm.sh
@@ -302,7 +303,7 @@ RUN chmod +x /entrypoint.sh
 
 USER 1234 
 # Set the working directory
-WORKDIR /projects
+WORKDIR /project 
 
 # Expose port
 EXPOSE 8888
