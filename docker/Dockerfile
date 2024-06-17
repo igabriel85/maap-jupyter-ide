@@ -217,8 +217,8 @@ COPY shareAlgorithm.sh $HOME/shareAlgorithm.sh
 
 USER 0
 
-RUN echo "$CONDA_PREFIX/lib" > /etc/ld.so.conf.d/pymaap-libs.conf
-RUN ldconfig
+# RUN echo "$CONDA_PREFIX/lib" > /etc/ld.so.conf.d/pymaap-libs.conf
+# RUN ldconfig
 
 RUN  chmod +x $HOME/initTemplate.sh
 RUN  chmod +x $HOME/shareAlgorithm.sh
