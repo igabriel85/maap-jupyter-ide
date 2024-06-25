@@ -303,7 +303,7 @@ RUN chmod +x /entrypoint.sh
 
 USER 1234 
 # Set the working directory
-WORKDIR /project 
+WORKDIR /projects
 
 # Expose port
 EXPOSE 8888
